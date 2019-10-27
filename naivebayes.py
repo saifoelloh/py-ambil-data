@@ -19,24 +19,22 @@ le = preprocessing.LabelEncoder()
 
 # Converting string labels into numbers.
 ipk_encoded = le.fit_transform(ipk)
-le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-print(le_name_mapping)
+le_ipk_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
+#print(le_ipk_mapping.keys())
 
 name_encoded = le.fit_transform(name)
 le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-print(le_name_mapping)
+#print(le_name_mapping.keys())
 
 label = le.fit_transform(status)
-le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-print(le_name_mapping)
+le_label_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
+#print(le_label_mapping.keys())
 
-#print "NIM:",nim_encoded
 print "IPK:",ipk_encoded
-print "NME",name_encoded
+print "MKL",name_encoded
 print "STS:",label
 
 # Combinig weather and temp into single listof tuples
-#features=zip(nim_encoded, ipk_encoded, name_encoded)
 features=zip(name_encoded, ipk_encoded)
 #print features
 
@@ -52,4 +50,4 @@ model.fit(features, label)
 for x in range(0, 30):
 	for y in range(0, 4):
 		predicted=model.predict([[x,y]])
-		print "Predicted Value:", predicted, x, y
+		print "Predicted Value [IPK:", le_ipk_mapping.keys()[y], " MKL:",le_name_mapping.keys()[x],"] :", predicted
