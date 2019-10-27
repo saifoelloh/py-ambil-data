@@ -7,7 +7,7 @@ myBigData = []
 link = 'http://en.dinus.ac.id/mahasiswa/A11.2017.{}'
 
 start = 10055
-stop = 10555 #11000
+stop = 11000
 data = []
 
 for idx in range(start, stop):

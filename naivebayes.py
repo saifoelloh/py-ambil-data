@@ -4,6 +4,7 @@ import csv
 
 #====================================================== Defining Dataset
 ipk=[]
+mkul=[]
 name=[]
 status=[]
 
@@ -11,6 +12,7 @@ status=[]
 input_file = csv.DictReader(open("myBigData.csv"))
 for row in input_file:
     ipk.append(int(float(row['ipk']))) #convert string to float to int
+    mkul.append(row['code'])
     name.append(row['name'])
     status.append(row['status'])
 
@@ -20,22 +22,22 @@ le = preprocessing.LabelEncoder()
 # Converting string labels into numbers.
 ipk_encoded = le.fit_transform(ipk)
 le_ipk_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-#print(le_ipk_mapping.keys())
-
+mkul_encoded = le.fit_transform(mkul)
+le_mkul_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
 name_encoded = le.fit_transform(name)
 le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-#print(le_name_mapping.keys())
-
 label = le.fit_transform(status)
 le_label_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-#print(le_label_mapping.keys())
 
 print "IPK:",ipk_encoded
-print "MKL",name_encoded
+print "MKL",mkul_encoded
 print "STS:",label
+#print(le_ipk_mapping.keys())
+#print(le_mkul_mapping.keys())
+#print(le_label_mapping.keys())
 
 # Combinig weather and temp into single listof tuples
-features=zip(name_encoded, ipk_encoded)
+features=zip(mkul_encoded, ipk_encoded)
 #print features
 
 #====================================================== Generating Model
@@ -46,8 +48,20 @@ model = GaussianNB()
 model.fit(features, label)
 
 # Predict Output
-#for x, namex in enumerate(name_encoded):
+myPredictResult = []
 for x in range(0, 30):
 	for y in range(0, 4):
 		predicted=model.predict([[x,y]])
-		print "Predicted Value [IPK:", le_ipk_mapping.keys()[y], " MKL:",le_name_mapping.keys()[x],"] :", predicted
+		myPredict = {}
+		myPredict['ipk'] = le_ipk_mapping.keys()[y]
+		myPredict['mkul'] = le_name_mapping.keys()[x]
+		myPredict['status'] = predicted
+		myPredictResult.append(myPredict)
+		print "Predicted Value [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_mkul_mapping.keys()[x],"] :", predicted
+
+filename = 'resultData.csv'
+with open(filename, 'wb') as f: 
+    w = csv.DictWriter(f,['ipk','mkul','status']) 
+    w.writeheader() 
+    for myPredict in myPredictResult: 
+        w.writerow(myPredict) 
