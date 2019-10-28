@@ -50,7 +50,7 @@ model.fit(features, label)
 
 # Predict Output
 myPredictResult = []
-for x in range(0, len(le_mkul_mapping.keys())):
+for x in range(0, len(le_name_mapping.keys())):
 	for y in range(0, len(le_ipk_mapping.keys())):
 		predicted=model.predict([[x,y]])
 		myPredict = {}
@@ -58,7 +58,7 @@ for x in range(0, len(le_mkul_mapping.keys())):
 		myPredict['mkul'] = le_name_mapping.keys()[x]
 		myPredict['status'] = predicted
 		myPredictResult.append(myPredict)
-		print "Predicted Value [", x, y, "] [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_mkul_mapping.keys()[x],"] :", predicted
+		print "Predicted Value [", x, y, "] [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_name_mapping.keys()[x],"] :", predicted
 
 filename = 'resultData.csv'
 with open(filename, 'wb') as f: 
