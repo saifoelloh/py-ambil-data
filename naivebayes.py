@@ -33,7 +33,8 @@ print "IPK:",ipk_encoded
 print "MKL",mkul_encoded
 print "STS:",label
 #print(le_ipk_mapping.keys())
-#print(le_mkul_mapping.keys())
+#print(len(le_mkul_mapping.keys()), le_mkul_mapping.keys())
+#print(len(le_name_mapping))
 #print(le_label_mapping.keys())
 
 # Combinig weather and temp into single listof tuples
@@ -49,8 +50,8 @@ model.fit(features, label)
 
 # Predict Output
 myPredictResult = []
-for x in range(0, 30):
-	for y in range(0, 4):
+for x in range(0, len(le_mkul_mapping.keys())):
+	for y in range(0, len(le_ipk_mapping.keys())):
 		predicted=model.predict([[x,y]])
 		myPredict = {}
 		myPredict['ipk'] = le_ipk_mapping.keys()[y]
