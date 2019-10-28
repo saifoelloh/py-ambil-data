@@ -37,7 +37,7 @@ print "STS:",label
 #print(len(le_name_mapping))
 #print(le_label_mapping.keys())
 
-# Combinig weather and temp into single listof tuples
+# Combinig mkul and ipk into single listof tuples
 features=zip(mkul_encoded, ipk_encoded)
 #print features
 
@@ -58,7 +58,7 @@ for x in range(0, len(le_mkul_mapping.keys())):
 		myPredict['mkul'] = le_name_mapping.keys()[x]
 		myPredict['status'] = predicted
 		myPredictResult.append(myPredict)
-		print "Predicted Value [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_mkul_mapping.keys()[x],"] :", predicted
+		print "Predicted Value [", x, y, "] [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_mkul_mapping.keys()[x],"] :", predicted
 
 filename = 'resultData.csv'
 with open(filename, 'wb') as f: 
