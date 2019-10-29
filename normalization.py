@@ -17,12 +17,12 @@ for kuliah in kuliahs:
     mahasiswa = myMahasiswa.find_one({"_id": kuliah['mahasiswa']})
     makul = myMakul.find_one({"_id": kuliah['makul']})
     kelas = {
-            "name": mahasiswa['name'],
-            "nim": mahasiswa['nim'],
-            "ipk": mahasiswa['ipk'],
-            "makul": makul['name'],
-            "code": makul['code'],
-            "status": kuliah['status'],
+        "name": mahasiswa['name'],
+        "nim": mahasiswa['nim'],
+        "ipk": mahasiswa['ipk'],
+        "makul": makul['name'],
+        "code": makul['code'],
+        "status": kuliah['status'],
     }
     print(kelas)
     myClasses.insert_one(kelas)
