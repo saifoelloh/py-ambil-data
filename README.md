@@ -2,7 +2,7 @@
 
 Crawl data from `dinus.ac.id` to get study plan of college student
 
-- install `beautifulsoap4` and `pymongo`
+- install `beautifulsoap4`, `requests`, and `pymongo`
 - turn on your mongodb service and mongo client to check the result
 - execute the script with `python index.py`
 - check the result in mongo client
