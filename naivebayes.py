@@ -1,5 +1,7 @@
 from sklearn import preprocessing
 from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 import csv
 
 #====================================================== Defining Dataset
@@ -11,7 +13,40 @@ status=[]
 # Assigning features and label variables
 input_file = csv.DictReader(open("myBigData.csv"))
 for row in input_file:
-    ipk.append(int(float(row['ipk']))) #convert string to float to int
+    myipk=float(row['ipk'])
+    if(myipk >= 3.75 and myipk < 4.00):
+        ipk.append(3.75)
+    elif(myipk >= 3.50 and myipk < 3.75):
+        ipk.append(3.50)
+    elif(myipk >= 3.25 and myipk < 3.50):
+        ipk.append(3.25)
+    elif(myipk >= 3.00 and myipk < 3.25):
+        ipk.append(3.00)
+    elif(myipk >= 2.75 and myipk < 3.00):
+        ipk.append(2.75)
+    elif(myipk >= 2.50 and myipk < 2.75):
+        ipk.append(2.50)
+    elif(myipk >= 2.25 and myipk < 2.50):
+        ipk.append(2.25)
+    elif(myipk >= 2.00 and myipk < 2.25):
+        ipk.append(2.00)
+    elif(myipk >= 1.75 and myipk < 2.00):
+        ipk.append(1.75)
+    elif(myipk >= 1.50 and myipk < 1.75):
+        ipk.append(1.50)
+    elif(myipk >= 1.25 and myipk < 1.50):
+        ipk.append(1.25)
+    elif(myipk >= 1.00 and myipk < 1.25):
+        ipk.append(1.00)
+    elif(myipk >= 0.75 and myipk < 1.00):
+        ipk.append(0.75)
+    elif(myipk >= 0.50 and myipk < 0.75):
+        ipk.append(0.50)
+    elif(myipk >= 0.25 and myipk < 0.50):
+        ipk.append(0.25)
+    else:
+        ipk.append(0.00)
+    #ipk.append(int(float(row['ipk']))) #convert string to float to int
     mkul.append(row['code'])
     name.append(row['name'])
     status.append(row['status'])
@@ -32,8 +67,8 @@ le_label_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
 print "IPK:",ipk_encoded
 print "MKL",mkul_encoded
 print "STS:",label
-#print(le_ipk_mapping.keys())
-#print(len(le_mkul_mapping.keys()), le_mkul_mapping.keys())
+#print(le_ipk_mapping)
+print(le_ipk_mapping.keys())
 #print(len(le_name_mapping))
 #print(le_label_mapping.keys())
 
@@ -56,7 +91,7 @@ for x in range(0, len(le_name_mapping.keys())):
 		myPredict = {}
 		myPredict['ipk'] = le_ipk_mapping.keys()[y]
 		myPredict['mkul'] = le_name_mapping.keys()[x]
-		myPredict['status'] = predicted
+		myPredict['status'] = str(predicted).replace("[", "").replace("]", "")
 		myPredictResult.append(myPredict)
 		print "Predicted Value [", x, y, "] [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_name_mapping.keys()[x],"] :", predicted
 
