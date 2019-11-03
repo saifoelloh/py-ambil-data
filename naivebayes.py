@@ -68,7 +68,7 @@ print "IPK:",ipk_encoded
 print "MKL",mkul_encoded
 print "STS:",label
 #print(le_ipk_mapping)
-print(le_ipk_mapping.keys())
+#print(le_ipk_mapping.keys())
 #print(len(le_name_mapping))
 #print(le_label_mapping.keys())
 
@@ -82,6 +82,7 @@ model = GaussianNB()
 
 # Train the model using the training sets
 model.fit(features, label)
+print "Score: ", model.score(features,label)
 
 # Predict Output
 myPredictResult = []
@@ -93,7 +94,7 @@ for x in range(0, len(le_name_mapping.keys())):
 		myPredict['mkul'] = le_name_mapping.keys()[x]
 		myPredict['status'] = str(predicted).replace("[", "").replace("]", "")
 		myPredictResult.append(myPredict)
-		print "Predicted Value [", x, y, "] [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_name_mapping.keys()[x],"] :", predicted
+		#print "Predicted Value [", x, y, "] [IPK:", le_ipk_mapping.keys()[y], ", MKL:",le_name_mapping.keys()[x],"] :", predicted
 
 filename = 'resultData.csv'
 with open(filename, 'wb') as f: 
